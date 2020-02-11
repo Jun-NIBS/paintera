@@ -1,17 +1,5 @@
 package org.janelia.saalfeldlab.fx.ortho;
 
-import java.lang.invoke.MethodHandles;
-import java.util.Collection;
-import java.util.function.Consumer;
-import java.util.function.Function;
-
-import org.janelia.saalfeldlab.paintera.control.navigation.AffineTransformWithListeners;
-import org.janelia.saalfeldlab.paintera.control.navigation.TransformConcatenator;
-import org.janelia.saalfeldlab.paintera.data.axisorder.AxisOrder;
-import org.janelia.saalfeldlab.paintera.state.GlobalTransformManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import bdv.cache.CacheControl;
 import bdv.fx.viewer.ViewerPanelFX;
 import bdv.viewer.Interpolation;
@@ -23,7 +11,19 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
+import net.imglib2.RealInterval;
 import net.imglib2.realtransform.AffineTransform3D;
+import org.janelia.saalfeldlab.paintera.control.navigation.AffineTransformWithListeners;
+import org.janelia.saalfeldlab.paintera.control.navigation.TransformConcatenator;
+import org.janelia.saalfeldlab.paintera.data.axisorder.AxisOrder;
+import org.janelia.saalfeldlab.paintera.state.GlobalTransformManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
+import java.util.Collection;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * Wrap a {@link ResizableGridPane2x2} with {@link ViewerPanelFX viewer panels} at top left, top right, and bottom left. Bottom right
@@ -181,17 +181,9 @@ public class OrthogonalViews<BR extends Node>
 		applyToAll(ViewerPanelFX::requestRepaint);
 	}
 
-	/**
-	 * {@link ViewerPanelFX#requestRepaint(long[], long[])}} for all {@link ViewerPanelFX viewer children} (top left, top right, bottom left)
-	 *
-	 * @param min
-	 * 		top left corner of interval to be repainted
-	 * @param max
-	 * 		bottom right corner of interval to be repainted
-	 */
-	public void requestRepaint(final long[] min, final long[] max)
+	public void requestRepaint(final RealInterval intervalInGlobalSpace)
 	{
-		applyToAll(vp -> vp.requestRepaint(min, max));
+		this.applyToAll(v -> v.requestRepaint(intervalInGlobalSpace));
 	}
 
 	/**

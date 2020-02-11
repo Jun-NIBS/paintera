@@ -214,7 +214,7 @@ public class LabelSourceStatePaintHandler {
 
 		// paint
 		final PaintClickOrDrag paintDrag = new PaintClickOrDrag(
-				sourceInfo,
+				paintera,
 				t,
 				paintSelection,
 				this.brushProperties.brushRadius::get,
@@ -224,7 +224,7 @@ public class LabelSourceStatePaintHandler {
 
 		// erase
 		final PaintClickOrDrag eraseDrag = new PaintClickOrDrag(
-				sourceInfo,
+				paintera,
 				t,
 				() -> Label.TRANSPARENT,
 				this.brushProperties.brushRadius::get,
@@ -234,7 +234,7 @@ public class LabelSourceStatePaintHandler {
 
 		// background
 		final PaintClickOrDrag backgroundDrag = new PaintClickOrDrag(
-				sourceInfo,
+				paintera,
 				t,
 				() -> Label.BACKGROUND,
 				this.brushProperties.brushRadius::get,
